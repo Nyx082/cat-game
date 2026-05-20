@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://c6w3aujiov0p"]
+
+[ext_resource type="Script" uid="uid://cujf1gkno07k7" path="res://addons/proto_controller/proto_controller.gd" id="1_kpjcp"]
+[ext_resource type="PackedScene" uid="uid://cs14mmit5nmot" path="res://assets/Kigger.glb" id="2_kne1u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_768x2"]
+size = Vector3(1, 1, 0.465)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kpjcp"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=1818870972]
+script = ExtResource("1_kpjcp")
+can_sprint = true
+input_left = "move_left"
+input_right = "move_right"
+input_forward = "move_forward"
+input_back = "move_back"
+input_jump = "move_jump"
+input_sprint = "move_sprint"
+input_freefly = "test_freefly"
+
+[node name="Kigger" parent="." unique_id=516244196 instance=ExtResource("2_kne1u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.7840385, 0)
+
+[node name="Collider" type="CollisionShape3D" parent="." unique_id=735352040]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8479853, -0.03795558)
+shape = SubResource("BoxShape3D_768x2")
+
+[node name="Head" type="Node3D" parent="." unique_id=325641722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.8494158, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1527306805]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013, 0.36399996, -0.233)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1955135447]
+replication_config = SubResource("SceneReplicationConfig_kpjcp")
